@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "591300642361",
+    "project_id": "emoney-ea096",
+    "storage_bucket": "emoney-ea096.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591300642361:android:9874ea2480630038946fe8",
+        "android_client_info": {
+          "package_name": "com.example.dompetkampus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591300642361-6jut1apos75c7293qef3mng08sr0cq10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCn7uyqFxm52Vk9oqdXEfUFLs3l5vh0KQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591300642361-6jut1apos75c7293qef3mng08sr0cq10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
