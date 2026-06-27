@@ -38,12 +38,18 @@ class AppField extends StatefulWidget {
 
 class _AppFieldState extends State<AppField> {
   late final TextEditingController _ctrl;
+  late final FocusNode _focusNode;
   bool _focused = false;
 
   @override
   void initState() {
     super.initState();
     _ctrl = TextEditingController(text: widget.value);
+    _focusNode = FocusNode();
+
+    _focusNode.addListener(() {
+      setState(() => _focused = _focusNode.hasFocus);
+    });
   }
 
   @override
@@ -57,6 +63,7 @@ class _AppFieldState extends State<AppField> {
   @override
   void dispose() {
     _ctrl.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -91,7 +98,9 @@ class _AppFieldState extends State<AppField> {
             boxShadow: _focused
                 ? [
                     BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.1), blurRadius: 0, spreadRadius: 4)
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        blurRadius: 0,
+                        spreadRadius: 4)
                   ]
                 : [],
           ),
@@ -114,6 +123,7 @@ class _AppFieldState extends State<AppField> {
                   onFocusChange: (f) => setState(() => _focused = f),
                   child: TextField(
                     controller: _ctrl,
+                    focusNode: _focusNode,
                     onChanged: widget.onChanged,
                     keyboardType: widget.keyboardType,
                     obscureText: widget.obscureText,
@@ -121,6 +131,7 @@ class _AppFieldState extends State<AppField> {
                     maxLength: widget.maxLength,
                     textInputAction: widget.textInputAction,
                     onEditingComplete: widget.onEditingComplete,
+                    onTapOutside: (_) => FocusScope.of(context).unfocus(),
                     style: const TextStyle(
                       fontFamily: 'PlusJakartaSans',
                       fontSize: 15.5,
@@ -136,6 +147,10 @@ class _AppFieldState extends State<AppField> {
                         color: AppColors.slate300,
                       ),
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                       isDense: true,
                       counterText: '',
                       contentPadding: EdgeInsets.zero,
