@@ -30,7 +30,11 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _gLoading = true);
     try {
       debugPrint('[Auth] Google sign-in: memulai...');
-      final googleSignIn = GoogleSignIn();
+      final googleSignIn = GoogleSignIn(
+        clientId:
+            '591300642361-6jut1apos75c7293qef3mng08sr0cq10.apps.googleusercontent.com',
+      );
+
       // Keluar dari sesi Google yang ter-cache agar dialog pilih akun selalu muncul
       await googleSignIn.signOut();
       final googleUser = await googleSignIn.signIn();
