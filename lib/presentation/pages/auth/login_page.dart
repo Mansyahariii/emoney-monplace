@@ -292,14 +292,7 @@ class _GoogleIcon extends StatelessWidget {
     return SizedBox(
       width: 21,
       height: 21,
-      child: Image.asset(
-        'assets/images/google-logo.png',
-        errorBuilder: (_, __, ___) => const Icon(
-          Icons.g_mobiledata_rounded,
-          size: 24,
-          color: Colors.red,
-        ),
-      ),
+      child: Image.asset('assets/icons/google-logo.png'),
     );
   }
 }
