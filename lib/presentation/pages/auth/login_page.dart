@@ -142,7 +142,65 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                               fontSize: 14.5, color: AppColors.slate500)),
                       const SizedBox(height: 24),
-                      // Google sign in
+                      AppField(
+                        label: 'Email',
+                        value: _email,
+                        onChanged: (v) => setState(() => _email = v),
+                        placeholder: 'nama@email.com',
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(DkgIcons.mail, size: 20),
+                      ),
+                      const SizedBox(height: 14),
+                      AppField(
+                        label: 'Kata sandi',
+                        value: _pw,
+                        onChanged: (v) => setState(() => _pw = v),
+                        obscureText: !_showPw,
+                        placeholder: '••••••••',
+                        prefixIcon: const Icon(DkgIcons.lock, size: 20),
+                        suffixIcon: IconButton(
+                          icon: Icon(_showPw ? DkgIcons.eyeOff : DkgIcons.eye,
+                              size: 20, color: AppColors.slate400),
+                          onPressed: () => setState(() => _showPw = !_showPw),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text('Lupa kata sandi?',
+                              style: TextStyle(
+                                fontFamily: 'PlusJakartaSans',
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13.5,
+                              )),
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      BlocBuilder<AuthBloc, AuthState>(
+                        builder: (context, state) => AppButton(
+                          label: 'Masuk',
+                          onPressed: _valid ? _loginWithEmail : null,
+                          isLoading: state is AuthLoading,
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      Row(children: [
+                        const Expanded(child: Divider(color: AppColors.line)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: const Text('atau',
+                              style: TextStyle(
+                                fontFamily: 'PlusJakartaSans',
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.slate400,
+                              )),
+                        ),
+                        const Expanded(child: Divider(color: AppColors.line)),
+                      ]),
+                      const SizedBox(height: 22),
                       BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
                           final loading = state is AuthLoading || _gLoading;
@@ -195,65 +253,6 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                       const SizedBox(height: 22),
-                      Row(children: [
-                        const Expanded(child: Divider(color: AppColors.line)),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: const Text('atau email',
-                              style: TextStyle(
-                                fontFamily: 'PlusJakartaSans',
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.slate400,
-                              )),
-                        ),
-                        const Expanded(child: Divider(color: AppColors.line)),
-                      ]),
-                      const SizedBox(height: 22),
-                      AppField(
-                        label: 'Email',
-                        value: _email,
-                        onChanged: (v) => setState(() => _email = v),
-                        placeholder: 'nama@email.com',
-                        keyboardType: TextInputType.emailAddress,
-                        prefixIcon: const Icon(DkgIcons.mail, size: 20),
-                      ),
-                      const SizedBox(height: 14),
-                      AppField(
-                        label: 'Kata sandi',
-                        value: _pw,
-                        onChanged: (v) => setState(() => _pw = v),
-                        obscureText: !_showPw,
-                        placeholder: '••••••••',
-                        prefixIcon: const Icon(DkgIcons.lock, size: 20),
-                        suffixIcon: IconButton(
-                          icon: Icon(_showPw ? DkgIcons.eyeOff : DkgIcons.eye,
-                              size: 20, color: AppColors.slate400),
-                          onPressed: () => setState(() => _showPw = !_showPw),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text('Lupa kata sandi?',
-                              style: TextStyle(
-                                fontFamily: 'PlusJakartaSans',
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 13.5,
-                              )),
-                        ),
-                      ),
-                      const SizedBox(height: 18),
-                      BlocBuilder<AuthBloc, AuthState>(
-                        builder: (context, state) => AppButton(
-                          label: 'Masuk',
-                          onPressed: _valid ? _loginWithEmail : null,
-                          isLoading: state is AuthLoading,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
