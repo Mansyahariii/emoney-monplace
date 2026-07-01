@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Blue
-  static const Color primary = Color(0xFF0B63E5);
-  static const Color primaryLight = Color(0xFF2C8BFF);
-  static const Color primaryDark = Color(0xFF0A4FBF);
-  static const Color primarySurface = Color(0xFFE8F1FD);
-  static const Color primaryBorder = Color(0xFFB8D0F7);
+  // Primary Teal
+  static const Color primary = Color(0xFF0F766E);
+  static const Color primaryLight = Color(0xFF2DD4BF);
+  static const Color primaryDark = Color(0xFF115E59);
+  static const Color primarySurface = Color(0xFFF0FDFA);
+  static const Color primaryBorder = Color(0xFFCCFBF1);
 
   // Semantic
   static const Color green = Color(0xFF16A571);
@@ -19,14 +19,14 @@ class AppColors {
   static const Color violetSurface = Color(0xFFF0EEFF);
 
   // Neutral
-  static const Color ink = Color(0xFF0E1726);
+  static const Color ink = Color(0xFF0F172A);
   static const Color slate600 = Color(0xFF4B5E78);
   static const Color slate500 = Color(0xFF6B7A90);
   static const Color slate400 = Color(0xFF9DABBE);
   static const Color slate300 = Color(0xFFCBD2DD);
   static const Color line = Color(0xFFE8ECF2);
   static const Color line2 = Color(0xFFF3F5F8);
-  static const Color bg = Color(0xFFF6F7F9);
+  static const Color bg = Color(0xFFF8FAFC);
   static const Color white = Color(0xFFFFFFFF);
 
   // Gradient
@@ -40,7 +40,7 @@ class AppColors {
   // Shadows
   static List<BoxShadow> shadowCard = [
     BoxShadow(
-      color: Color(0x14000000),
+      color: Color(0x0F000000),
       blurRadius: 24,
       spreadRadius: 0,
       offset: Offset(0, 4),
@@ -48,7 +48,7 @@ class AppColors {
   ];
   static List<BoxShadow> shadowSoft = [
     BoxShadow(
-      color: Color(0x0A000000),
+      color: Color(0x05000000),
       blurRadius: 12,
       spreadRadius: 0,
       offset: Offset(0, 2),
@@ -56,7 +56,7 @@ class AppColors {
   ];
   static List<BoxShadow> shadowPrimary = [
     BoxShadow(
-      color: Color(0x520B63E5),
+      color: Color(0x290F766E),
       blurRadius: 22,
       spreadRadius: 0,
       offset: Offset(0, 10),
