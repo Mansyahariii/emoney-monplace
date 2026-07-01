@@ -67,7 +67,7 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
           children: [
             IconButton(
               icon: const Icon(Icons.close_rounded, color: Colors.white, size: 24),
-              onPressed: () => context.go('/home'),
+              onPressed: () => context.pop(),
             ),
             const Expanded(
               child: Text('Scan QRIS',
@@ -247,7 +247,7 @@ class _PaymentQrPageState extends State<PaymentQrPage> {
                 icon: const Icon(Icons.lock_outline_rounded, size: 19, color: Colors.white),
                 onPressed: () {
                   setState(() => _sheetShown = true);
-                  context.go('/pin', extra: {
+                  context.push('/pin', extra: {
                     'kind': 'payment',
                     'description': 'Pembayaran ${_merchant['name']}',
                     'amount': amount,

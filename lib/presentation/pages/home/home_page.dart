@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () => context.go('/topup'),
+                onTap: () => context.push('/topup'),
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> {
               children: actions.map((a) {
                 return Expanded(
                   child: GestureDetector(
-                    onTap: () => context.go(a['route'] as String),
+                    onTap: () => context.push(a['route'] as String),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
