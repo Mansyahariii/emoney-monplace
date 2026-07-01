@@ -5,7 +5,6 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/currency_formatter.dart';
 import '../../blocs/account/account_bloc.dart';
 import '../../widgets/app_button.dart';
-import '../../widgets/feature_icon.dart';
 import '../../widgets/success_check.dart';
 
 class SuccessPage extends StatefulWidget {

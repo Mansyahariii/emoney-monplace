@@ -8,7 +8,6 @@ import '../../widgets/app_avatar.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_field.dart';
 import '../../widgets/app_top_bar.dart';
-import '../../widgets/feature_icon.dart';
 import '../../widgets/num_pad.dart';
 
 class TransferAmountPage extends StatefulWidget {

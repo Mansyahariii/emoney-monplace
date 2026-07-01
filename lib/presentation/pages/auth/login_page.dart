@@ -8,7 +8,6 @@ import '../../../core/theme/app_colors.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_field.dart';
-import '../../widgets/app_logo.dart';
 import '../../widgets/feature_icon.dart';
 
 class LoginPage extends StatefulWidget {
