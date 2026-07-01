@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../core/error/exceptions.dart';
 import '../../core/error/failures.dart';
 import '../../domain/entities/user_entity.dart';
@@ -19,6 +20,15 @@ class AuthRepositoryImpl implements AuthRepository {
       await _local.saveToken(result.token);
       await _local.saveUserJson(result.user.toJsonString());
       await _local.saveAuthVerified(false);
+
+      // Register FCM token immediately after getting JWT
+      try {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken != null) {
+          await _remote.updateFcmToken(fcmToken);
+        }
+      } catch (_) {}
+
       return (user: result.user, token: result.token);
     } on UnauthorizedException catch (e) {
       throw AuthFailure(e.message, errorCode: e.errorCode);
@@ -36,6 +46,15 @@ class AuthRepositoryImpl implements AuthRepository {
       await _local.saveToken(result.token);
       await _local.saveUserJson(result.user.toJsonString());
       await _local.saveAuthVerified(false);
+
+      // Register FCM token immediately after getting JWT
+      try {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken != null) {
+          await _remote.updateFcmToken(fcmToken);
+        }
+      } catch (_) {}
+
       return (user: result.user, token: result.token);
     } on UnauthorizedException catch (e) {
       throw AuthFailure(e.message, errorCode: e.errorCode);
@@ -91,6 +110,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<String?> getSavedToken() => _local.getToken();
+
+  @override
+  Future<void> restoreApiToken() async {
+    final token = await _local.getToken();
+    if (token != null) _remote.setAuthToken(token);
+  }
 
   @override
   Future<UserEntity?> getSavedUser() async {
