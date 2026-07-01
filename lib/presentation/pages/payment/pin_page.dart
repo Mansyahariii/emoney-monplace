@@ -244,60 +244,65 @@ class _PinPageState extends State<PinPage> {
           },
         ),
       ],
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.close_rounded, color: AppColors.ink),
-                  onPressed: () {
-                    if (_step == _Step.otp && !_busy) {
-                      _countdown?.cancel();
-                      setState(() {
-                        _step = _Step.pin;
-                        _pin = '';
-                        _otpCode = '';
-                      });
-                    } else {
-                      // Kirim callback cancelled jika user membatalkan dari flow deeplink.
-                      final cb = _callbackUrl;
-                      if (cb != null) {
-                        DeeplinkCallbackService.notifyCancelled(
-                          callbackUrl: cb,
-                          reference: _callbackReference,
-                        );
-                      }
-                      context.go('/home');
-                    }
-                  },
-                ),
-              ),
-              if (_busy) ...[
-                const Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(color: AppColors.primary),
-                      SizedBox(height: 18),
-                      Text('Memproses transaksi…',
-                          style: TextStyle(
-                            fontFamily: 'PlusJakartaSans',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.slate600,
-                          )),
-                    ],
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (didPop) return;
+          if (_busy) return;
+          if (_step == _Step.otp) {
+            _countdown?.cancel();
+            setState(() {
+              _step = _Step.pin;
+              _pin = '';
+              _otpCode = '';
+            });
+            return;
+          }
+          final cb = _callbackUrl;
+          if (cb != null) {
+            DeeplinkCallbackService.notifyCancelled(
+              callbackUrl: cb,
+              reference: _callbackReference,
+            );
+          }
+          context.pop();
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.close_rounded, color: AppColors.ink),
+                    onPressed: () => Navigator.of(context).maybePop(),
                   ),
                 ),
-              ] else if (_step == _Step.pin) ...[
-                Expanded(child: _buildPinStep()),
-              ] else ...[
-                Expanded(child: _buildOtpStep()),
+                if (_busy) ...[
+                  const Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(color: AppColors.primary),
+                        SizedBox(height: 18),
+                        Text('Memproses transaksi…',
+                            style: TextStyle(
+                              fontFamily: 'PlusJakartaSans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.slate600,
+                            )),
+                      ],
+                    ),
+                  ),
+                ] else if (_step == _Step.pin) ...[
+                  Expanded(child: _buildPinStep()),
+                ] else ...[
+                  Expanded(child: _buildOtpStep()),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),
