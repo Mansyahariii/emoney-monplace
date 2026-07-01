@@ -34,7 +34,7 @@ class _TransferPageState extends State<TransferPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
-      appBar: AppTopBar(title: 'Transfer', onBack: () => context.go('/home')),
+      appBar: AppTopBar(title: 'Transfer', onBack: () => context.pop()),
       body: Column(
         children: [
           Container(
@@ -118,7 +118,7 @@ class _TransferPageState extends State<TransferPage> {
                 children: [
                   if (i > 0) const Divider(height: 1, indent: 16, color: AppColors.line2),
                   GestureDetector(
-                    onTap: () => context.go('/transfer/amount', extra: {
+                    onTap: () => context.push('/transfer/amount', extra: {
                       'recipient': c,
                       'channel': 'dkg',
                     }),
@@ -179,7 +179,7 @@ class _TransferPageState extends State<TransferPage> {
             children: [
               if (i > 0) const Divider(height: 1, indent: 16, color: AppColors.line2),
               GestureDetector(
-                onTap: () => context.go('/transfer/amount', extra: {
+                onTap: () => context.push('/transfer/amount', extra: {
                   'recipient': b,
                   'channel': 'bank',
                 }),

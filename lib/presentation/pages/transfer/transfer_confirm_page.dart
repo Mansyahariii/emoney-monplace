@@ -29,7 +29,7 @@ class TransferConfirmPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.bg,
-      appBar: AppTopBar(title: 'Konfirmasi', onBack: () => context.go('/transfer/amount')),
+      appBar: AppTopBar(title: 'Konfirmasi', onBack: () => context.pop()),
       body: Column(
         children: [
           Expanded(
@@ -152,7 +152,7 @@ class TransferConfirmPage extends StatelessWidget {
             child: AppButton(
               label: 'Konfirmasi & Bayar',
               icon: const Icon(Icons.lock_outline_rounded, size: 19, color: Colors.white),
-              onPressed: () => context.go('/pin', extra: {
+              onPressed: () => context.push('/pin', extra: {
                 'kind': 'transfer',
                 'recipient': recipient,
                 'channel': channel,

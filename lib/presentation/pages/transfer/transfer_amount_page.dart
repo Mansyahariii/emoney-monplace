@@ -51,7 +51,7 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppTopBar(title: 'Nominal Transfer', onBack: () => context.go('/transfer')),
+      appBar: AppTopBar(title: 'Nominal Transfer', onBack: () => context.pop()),
       body: Column(
         children: [
           Padding(
@@ -197,7 +197,7 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
             child: AppButton(
               label: 'Lanjut',
               onPressed: valid
-                  ? () => context.go('/transfer/confirm', extra: {
+                  ? () => context.push('/transfer/confirm', extra: {
                         'recipient': widget.recipient,
                         'channel': widget.channel,
                         'amount': _amount.toDouble(),
