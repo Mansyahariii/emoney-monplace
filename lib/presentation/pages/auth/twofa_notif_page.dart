@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,11 +16,50 @@ class TwoFANotifPage extends StatefulWidget {
 
 class _TwoFANotifPageState extends State<TwoFANotifPage> {
   String _phase = 'waiting'; // waiting, approved
+  StreamSubscription<RemoteMessage>? _fcmSubscription;
+  StreamSubscription<RemoteMessage>? _fcmOpenedAppSubscription;
 
   @override
   void initState() {
     super.initState();
     context.read<OtpBloc>().add(OtpSendFirebase());
+
+    // Listen for incoming messages while in foreground
+    _fcmSubscription = FirebaseMessaging.onMessage.listen(_handleMessage);
+
+    // Listen for notification taps when the app is in the background
+    _fcmOpenedAppSubscription = FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+
+    // Check if the app was launched from a terminated state via a notification tap
+    _checkInitialMessage();
+  }
+
+  Future<void> _checkInitialMessage() async {
+    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    debugPrint('[FCM Page] Received notification payload: ${message.data}');
+    final otpCode = message.data['otp_code'];
+    if (otpCode != null) {
+      debugPrint('[FCM Page] Extracted OTP code: $otpCode. Dispatching OtpConfirm.');
+      if (mounted) {
+        context.read<OtpBloc>().add(OtpConfirm(
+          code: otpCode,
+          otpType: 'firebase',
+        ));
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _fcmSubscription?.cancel();
+    _fcmOpenedAppSubscription?.cancel();
+    super.dispose();
   }
 
   @override
