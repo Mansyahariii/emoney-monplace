@@ -24,6 +24,21 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>CFBundleURLTypes</key>    
+    <array>    
+        <dict>    
+            <key>CFBundleURLName</key>    
+            <string>com.example.pasarMalam.paymentCallback</string>    
+            <key>CFBundleURLSchemes</key>    
+            <array>    
+                <string>pasarmalam</string>   <!-- ← Skema callback kita -->    
+            </array>    
+        </dict>    
+    </array>    
+	<key>LSApplicationQueriesSchemes</key>    
+	<array>    
+		<string>dompetkampus</string>    <!-- ← Dompet Kampus Global -->    
+	</array>  
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>
