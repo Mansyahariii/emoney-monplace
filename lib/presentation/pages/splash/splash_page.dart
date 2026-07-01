@@ -91,20 +91,49 @@ class _SplashPageState extends State<SplashPage> {
                         ),
                       ),
                       const Spacer(),
-                      Column(
-                        children: [
-                          AppButton(
-                            label: 'Buat Akun Baru',
-                            variant: AppButtonVariant.white,
-                            onPressed: () => context.push('/register'),
-                          ),
-                          const SizedBox(height: 11),
-                          AppButton(
-                            label: 'Masuk ke Akun',
-                            variant: AppButtonVariant.outlineWhite,
-                            onPressed: () => context.push('/login'),
-                          ),
-                        ],
+                      BlocBuilder<AuthBloc, AuthState>(
+                        builder: (context, state) {
+                          Widget child;
+                          if (state is AuthUnauthenticated) {
+                            child = Column(
+                              key: const ValueKey('unauthenticated'),
+                              children: [
+                                AppButton(
+                                  label: 'Buat Akun Baru',
+                                  variant: AppButtonVariant.white,
+                                  onPressed: () => context.push('/register'),
+                                ),
+                                const SizedBox(height: 11),
+                                AppButton(
+                                  label: 'Masuk ke Akun',
+                                  variant: AppButtonVariant.outlineWhite,
+                                  onPressed: () => context.push('/login'),
+                                ),
+                              ],
+                            );
+                          } else {
+                            child = const SizedBox(
+                              key: ValueKey('checking'),
+                              height: 111,
+                              child: Center(
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white54),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: child,
+                          );
+                        },
                       ),
                       const SizedBox(height: 30),
                     ],
